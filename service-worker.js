@@ -1,5 +1,5 @@
 const CACHE_NAME = "my-cache-v1";
-const urlsToCache = ["/", "/ca2.html", "/bamboo.html", "/main.js", "/bamboo.webp","/bottle.jpg","/bottle.webp","/charger.jpg","/charger.webp","/ecobag.jpg","/ecobag.webp","logo.png","logo.webp"];
+const urlsToCache = ["/", "/index.html", "/bamboo.jpg", "/main.js", "/bamboo.webp","/bottle.jpg","/bottle.webp","/charger.jpg","/charger.webp","/ecobag.jpg","/ecobag.webp","logo.png","logo.webp"];
 // Install event: Caches the assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
