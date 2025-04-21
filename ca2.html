@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A fully responsive website with accessibility features">
+    <title>EcoGreen - Sustainable Living</title>
+    <script src="main.js"></script>
+    <style>
+        /* Base Styles (Mobile First) */
+        :root {
+            --primary-color: #2e8b57;
+            --secondary-color: #3cb371;
+            --accent-color: #ff7f50;
+            --text-color: #333;
+            --light-bg: #f5f5f5;
+            --white: #ffffff;
+            --max-width: 1200px;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--light-bg);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Skip to Content Link (Accessibility) */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--primary-color);
+            color: white;
+            padding: 8px;
+            z-index: 100;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--box-shadow);
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            padding: 0 1rem;
+            margin: 0 auto;
+        }
+
+        .header-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo {
+            margin-bottom: 1rem;
+        }
+
+        .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        /* Navigation */
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer; 
+            padding: 0.5rem;
+            display: block;
+            margin: 0 auto;
+        }
+
+        nav {
+            width: 100%;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            background-color: var(--secondary-color);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .nav-links.active {
+            display: flex;
+        }
+
+        .nav-links li {
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-links li:last-child {
+            border-bottom: none;
+        }
+
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            display: block;
+            padding: 1rem;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Main Content */
+        main {
+            flex: 1;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('images/hero-small.webp') center/cover no-repeat;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+
+        .hero-content {
+            padding: 1rem;
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover,
+        .btn:focus {
+            background-color: #ff6347;
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+        }
+
+        .testimonial {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: var(--light-bg);
+            border-radius: var(--border-radius);
+        }
+
+        .testimonial:last-child {
+            margin-bottom: 0;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        /* Newsletter */
+        .newsletter {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            margin-bottom: 1rem;
+        }
+
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            padding: 0.75rem;
+            border: none;
+            border-radius: var(--border-radius);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2rem 0;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        .footer-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: var(--white);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover,
+        .footer-links a:focus {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover,
+        .social-links a:focus {
+            color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Responsive Breakpoints */
+        @media screen and (min-width: 600px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                height: 400px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media screen and (min-width: 900px) {
+            .header-container {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+
+            .logo {
+                margin-bottom: 0;
+            }
+
+            .menu-toggle {
+                display: none;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: row;
+                background-color: transparent;
+                width: auto;
+            }
+
+            .nav-links li {
+                border-bottom: none;
+            }
+
+            .nav-links a {
+                padding: 0.5rem 1rem;
+            }
+
+            .grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .hero {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                                  url('images/hero-medium.webp');
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            .hero {
+                background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                                  url('images/hero-large.webp');
+                height: 500px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .newsletter-form {
+                flex-direction: row;
+            }
+
+            .newsletter-form input {
+                flex: 1;
+                margin-bottom: 0;
+                margin-right: 1rem;
+            }
+        }
+
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        /* Dark mode preference */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --text-color: #f0f0f0;
+                --light-bg: #121212;
+            }
+
+            .card,
+            .testimonials {
+                background-color: #1e1e1e;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <picture>
+                    <source srcset="logo.webp" type="image/webp">
+                    <img src="logo.png" alt="EcoGreen Logo" width="120" height="60">
+                </picture>
+            </div>
+            
+            <button class="menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+                ☰
+            </button>
+            
+            <nav>
+                <ul class="nav-links" id="main-nav">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <main id="main-content">
+        <div class="container">
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <h1>Sustainable Living for a Greener Future</h1>
+                    <p>Discover eco-friendly products and services that help reduce your environmental footprint</p>
+                    <a href="#products" class="btn">Explore Products</a>
+                </div>
+            </section>
+            
+            <section id="products">
+                <h2 class="section-title">Our Featured Products</h2>
+                <div class="grid">
+                    <article class="card">
+                        <picture>
+                            <source media="(min-width: 1200px)" srcset="bamboo.webp">
+                            <source media="(min-width: 800px)" srcset="bamboo.webp">
+                            <source srcset="bamboo.webp">
+                            <img src="bamboo.jpg" alt="Bamboo toothbrush set" loading="lazy" width="400" height="300">
+                        </picture>
+                        <div class="card-content">
+                            <h3>Bamboo Toothbrushes</h3>
+                            <p>100% biodegradable bamboo toothbrushes with charcoal-infused bristles for natural whitening.</p>
+                            <a href="#" class="btn">Learn More</a>
+                        </div>
+                    </article>
+                    
+                    <article class="card">
+                        <picture>
+                            <source media="(min-width: 1200px)" srcset="ecobag.webp">
+                            <source media="(min-width: 800px)" srcset="ecobag.webp">
+                            <source srcset="ecobag.webp">
+                            <img src="ecobag.jpg" alt="Reusable shopping bags" loading="lazy" width="400" height="300">
+                        </picture>
+                        <div class="card-content">
+                            <h3>Reusable Shopping Bags</h3>
+                            <p>Durable, washable bags made from recycled materials that fold into a compact pouch.</p>
+                            <a href="#" class="btn">Learn More</a>
+                        </div>
+                    </article>
+                    
+                    <article class="card">
+                        <picture>
+                            <source media="(min-width: 1200px)" srcset="charger.webp">
+                            <source media="(min-width: 800px)" srcset="charger.webp">
+                            <source srcset="images/product3-small.webp">
+                            <img src="charger.jpg" alt="Solar powered charger" loading="lazy" width="400" height="300">
+                        </picture>
+                        <div class="card-content">
+                            <h3>Solar Phone Charger</h3>
+                            <p>Portable solar charger with high-efficiency panels and built-in battery storage.</p>
+                            <a href="#" class="btn">Learn More</a>
+                        </div>
+                    </article>
+                    
+                    <article class="card">
+                        <picture>
+                            <source media="(min-width: 1200px)" srcset="bottle.webp">
+                            <source media="(min-width: 800px)" srcset="bottle.webp">
+                            <source srcset="images/product4-small.webp">
+                            <img src="bottle.jpg" alt="Stainless steel water bottle" loading="lazy" width="400" height="300">
+                        </picture>
+                        <div class="card-content">
+                            <h3>Stainless Steel Bottle</h3>
+                            <p>Double-walled insulated bottle that keeps drinks cold for 24 hours or hot for 12 hours.</p>
+                            <a href="#" class="btn">Learn More</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
+            
+            <section id="services" class="testimonials">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <div class="testimonial">
+                    <p class="testimonial-text">"The bamboo toothbrushes are fantastic! They feel great and I love knowing I'm reducing plastic waste."</p>
+                    <p class="testimonial-author">- Subrat </p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"The solar charger saved me during my camping trip. It's now an essential part of my outdoor gear."</p>
+                    <p class="testimonial-author">- Michael T.</p>
+                </div>
+                <div class="testimonial">
+                    <p class="testimonial-text">"Excellent customer service and fast shipping. The reusable bags are sturdy and hold so much!"</p>
+                    <p class="testimonial-author">- Priya K.</p>
+                </div>
+            </section>
+            
+            <section class="newsletter">
+                <h2>Join Our Green Community</h2>
+                <p>Subscribe to our newsletter for eco-living tips, product updates, and exclusive offers.</p>
+                <form class="newsletter-form" aria-label="Newsletter subscription">
+                    <input type="email" placeholder="Your email address" required aria-required="true">
+                    <button type="submit" class="btn">Subscribe</button>
+                </form>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About EcoGreen</h3>
+                    <p>We're committed to providing sustainable alternatives to everyday products, helping you reduce waste and live more consciously.</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Connect With Us</h3>
+                    <address>
+                        <p>123 Green Way<br>Eco City, EC 12345</p>
+                        <p>Email: <a href="mailto:info@ecogreen.example">info@ecogreen.example</a></p>
+                        <p>Phone: <a href="tel:+1234567890">+91 9861203186</a></p>
+                    </address>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><span aria-hidden="true">f</span></a>
+                        <a href="#" aria-label="Twitter"><span aria-hidden="true">t</span></a>
+                        <a href="#" aria-label="Instagram"><span aria-hidden="true">ig</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 EcoGreen. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Enhanced JavaScript with accessibility considerations
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const menuToggle = document.querySelector('.menu-toggle');
+            const navLinks = document.querySelector('.nav-links');
+            
+            menuToggle.addEventListener('click', function() {
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+                navLinks.classList.toggle('active');
+                
+                // Update button text for screen readers
+                const menuState = !isExpanded ? 'Close' : 'Open';
+                this.setAttribute('aria-label', `${menuState} navigation menu`);
+            });
+            
+            // Close mobile menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 900) {
+                        menuToggle.setAttribute('aria-expanded', 'false');
+                        navLinks.classList.remove('active');
+                        menuToggle.setAttribute('aria-label', 'Open navigation menu');
+                    }
+                });
+            });
+            
+            // Responsive adjustments
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 900) {
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    navLinks.classList.remove('active');
+                }
+            });
+            
+            // Lazy loading for images
+            if ('loading' in HTMLImageElement.prototype) {
+                // Native lazy loading is supported
+                const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                });
+            } else {
+                // Fallback for browsers without native lazy loading
+                const lazyLoadObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const img = entry.target;
+                            img.src = img.dataset.src;
+                            lazyLoadObserver.unobserve(img);
+                        }
+                    });
+                });
+                
+                document.querySelectorAll('img[loading="lazy"]').forEach(img => {
+                    lazyLoadObserver.observe(img);
+                });
+            }
+        });
+    </script>
+</body>
+</html>
